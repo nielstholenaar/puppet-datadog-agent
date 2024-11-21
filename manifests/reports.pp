@@ -19,7 +19,7 @@ class datadog_agent::reports (
   $api_key,
   $puppetmaster_user,
   $dogapi_version,
-  $manage_dogapi_gem = true,
+  Boolean $manage_dogapi_gem = true,
   $hostname_extraction_regex = undef,
   $proxy_http = undef,
   $proxy_https = undef,
