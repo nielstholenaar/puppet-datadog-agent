@@ -14,16 +14,6 @@ Install the [datadog_agent][1] Puppet module in your Puppet master's module path
 puppet module install datadog-datadog_agent
 ```
 
-#### Upgrading
-
-- By default Datadog Agent v7.x is installed. To use an earlier Agent version, change the setting `agent_major_version`.
-- `agent5_enable` is no longer used, as it has been replaced by `agent_major_version`.
-- `agent6_extra_options` has been renamed to `agent_extra_options` since it applies to both Agent v6 and v7.
-- `agent6_log_file` has been renamed to `agent_log_file` since it applies to both Agent v6 and v7.
-- `agent5_repo_uri` and `agent6_repo_uri` become `agent_repo_uri` for all Agent versions.
-- `conf_dir` and `conf6_dir` become `conf_dir` for all Agent versions.
-- The repository file created on Linux is named `datadog` for all Agent versions instead of `datadog5`/`datadog6`.
-
 ### Configuration
 
 Once the `datadog_agent` module is installed on your `puppetserver`/`puppetmaster` (or on a masterless host), follow these configuration steps:
