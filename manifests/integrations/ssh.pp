@@ -27,13 +27,13 @@
 #
 
 class datadog_agent::integrations::ssh (
-  $host              = $trusted['certname'],
-  $port              = 22,
-  $username          = $datadog_agent::dd_user,
-  $password          = undef,
-  $sftp_check        = true,
-  $private_key_file  = undef,
-  $add_missing_keys  = true,
+  String $host                        = $trusted['certname'],
+  Integer $port                       = 22,
+  String $username                    = $datadog_agent::dd_user,
+  Optional[String] $password          = undef,
+  Boolean $sftp_check                 = true,
+  Optional[String] $private_key_file  = undef,
+  Boolean $add_missing_keys           = true,
 ) inherits datadog_agent::params {
   require datadog_agent
 
