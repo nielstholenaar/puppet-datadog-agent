@@ -19,7 +19,7 @@
 #     url           => 'unix://var/run/docker.sock',
 #   }
 #
-class datadog_agent::integrations::docker_daemon(
+class datadog_agent::integrations::docker_daemon (
   $group = 'docker',
   $docker_root = '/',
   $timeout = 10,
@@ -55,16 +55,16 @@ class datadog_agent::integrations::docker_daemon(
   $collect_labels_as_tags = [],
   $event_attributes_as_tags = [],
 ) inherits datadog_agent::params {
-  require ::datadog_agent
+  require datadog_agent
 
   exec { 'dd-agent-should-be-in-docker-group':
     command => "/usr/sbin/usermod -aG ${group} ${datadog_agent::dd_user}",
     unless  => "/bin/cat /etc/group | grep '^${group}:' | grep -qw ${datadog_agent::dd_user}",
     require => Package[$datadog_agent::params::package_name],
-    notify  => Service[$datadog_agent::params::service_name]
+    notify  => Service[$datadog_agent::params::service_name],
   }
 
-  if $::datadog_agent::_agent_major_version > 5 {
+  if versioncmp($datadog_agent::_agent_major_version, '5') > 0 {
     $legacy_dir = "${datadog_agent::params::conf_dir}/docker_daemon.d"
 
     file { $legacy_dir:
@@ -73,7 +73,7 @@ class datadog_agent::integrations::docker_daemon(
       group   => $datadog_agent::params::dd_group,
       mode    => $datadog_agent::params::permissions_directory,
       require => Package[$datadog_agent::params::package_name],
-      notify  => Service[$datadog_agent::params::service_name]
+      notify  => Service[$datadog_agent::params::service_name],
     }
     $legacy_conf = "${legacy_dir}/conf.yaml"
   } else {
@@ -81,10 +81,10 @@ class datadog_agent::integrations::docker_daemon(
   }
 
   file { $legacy_conf:
-    ensure => 'absent'
+    ensure => 'absent',
   }
 
-  if $::datadog_agent::_agent_major_version > 5 {
+  if versioncmp($datadog_agent::_agent_major_version, '5') > 0 {
     $dst_dir = "${datadog_agent::params::conf_dir}/docker.d"
 
     file { $dst_dir:
@@ -93,7 +93,7 @@ class datadog_agent::integrations::docker_daemon(
       group   => $datadog_agent::params::dd_group,
       mode    => $datadog_agent::params::permissions_directory,
       require => Package[$datadog_agent::params::package_name],
-      notify  => Service[$datadog_agent::params::service_name]
+      notify  => Service[$datadog_agent::params::service_name],
     }
     $dst = "${dst_dir}/conf.yaml"
   } else {
@@ -107,6 +107,6 @@ class datadog_agent::integrations::docker_daemon(
     mode    => $datadog_agent::params::permissions_file,
     content => template('datadog_agent/agent-conf.d/docker_daemon.yaml.erb'),
     require => Package[$datadog_agent::params::package_name],
-    notify  => Service[$datadog_agent::params::service_name]
+    notify  => Service[$datadog_agent::params::service_name],
   }
 }
