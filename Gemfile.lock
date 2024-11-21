@@ -447,7 +447,6 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin
-  ruby
   universal-darwin
   x86-linux-gnu
   x86-linux-musl
