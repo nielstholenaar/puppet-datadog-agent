@@ -42,15 +42,16 @@ instances:
 <%- end -%>
 <%- protocols = instance['tls_protocols_allowed'].is_a?(Array) ? instance['tls_protocols_allowed'] : [] -%>
 <%- unless protocols.empty? -%>
-  tls_protocols_allowed:
-<%- protocols.each do |protocol| -%>
-    - <%= protocol %>
+      tls_protocols_allowed:
+  <%- protocols.each do |protocol| -%>
+        - <%= protocol %>
+  <%- end -%>
 <%- end -%>
-<%- end -%>
+
 <%- ciphers = instance['tls_ciphers'].is_a?(Array) ? instance['tls_ciphers'] : [] -%>
 <%- unless ciphers.empty? -%>
-  tls_ciphers:
-<%- ciphers.each do |cipher| -%>
-    - <%= cipher %>
-<%- end -%>
+      tls_ciphers:
+  <%- ciphers.each do |cipher| -%>
+        - <%= cipher %>
+  <%- end -%>
 <%- end -%>
